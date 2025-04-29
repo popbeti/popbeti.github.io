@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplu Cookies</title>
+    <title>Site cu Cookies</title>
 </head>
 <body>
     <h1>Bine ai venit la lab</h1>
 
+    <!-- Buton care va apela funcția alertCookie -->
+    <button onclick="alertCookie()">Show cookies</button>
+
+    <!-- Scriptul pentru gestionarea cookies -->
     <script>
         // Setează cookies
         document.cookie = "session=test GDPR";
         document.cookie = "favorite_task=collect Data";
 
-        // Funcție pentru a arăta valoarea cookies
+        // Funcție pentru a afișa cookies
         function alertCookie() {
             alert("Cookies: " + document.cookie);
         }
     </script>
-
-    <!-- Butonul care va afișa cookies -->
-    <button onclick="alertCookie()">Show cookies</button>
 </body>
 </html>
