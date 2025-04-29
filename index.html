@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html lang="ro">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site cu Cookies</title>
-</head>
-<body>
-    <h1>Bine ai venit la lab</h1>
+    <style>
+        h1 {
+            color: pink;
+        }
 
-    <!-- Buton care va apela funcția alertCookie -->
-    <button onclick="alertCookie()">Show cookies</button>
-    <button onclick="showCookies()">Show cookies - MDN</button>
-    <button onclick="clearOutputCookies()">Clear</button>
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bine ai venit la lab!</h1>
+
+    <!-- Butoane pentru diverse acțiuni -->
+    <button onclick="showCookies()">Show cookies</button>
+    <button onclick="clearOutputCookies()">Clear cookies</button>
 
     <div>
         <code id="cookies"></code>
     </div>
 
+    <h1>Exemplu Cookie Value</h1>
     <button onclick="showCookieValue()">Show cookie value</button>
-    <button onclick="clearOutputCookieValue()">Clear</button>
+    <button onclick="clearOutputCookieValue()">Clear cookie value</button>
 
     <div>
         <code id="cookie-value"></code>
     </div>
 
+    <h1>Exemplu doar o dată</h1>
     <button onclick="doOnce()">Only do something once</button>
     <button onclick="clearOutputDoOnce()">Clear</button>
 
@@ -31,6 +56,7 @@
         <code id="do-once"></code>
     </div>
 
+    <h1>Resetare Cookie Doar O Dată</h1>
     <button onclick="resetOnce()">Reset only once cookie</button>
     <button onclick="clearOutputResetOnce()">Clear</button>
 
@@ -38,6 +64,7 @@
         <code id="reset-once"></code>
     </div>
 
+    <h1>Verificare existență cookie</h1>
     <button onclick="checkACookieExists()">Check a cookie exists</button>
     <button onclick="clearOutputACookieExists()">Clear</button>
 
@@ -45,6 +72,7 @@
         <code id="a-cookie-existence"></code>
     </div>
 
+    <h1>Verificare valoare specifică a cookie-ului</h1>
     <button onclick="checkCookieHasASpecificValue()">Check that a cookie has a specific value</button>
     <button onclick="clearASpecificValueOfTheCookie()">Clear</button>
 
@@ -57,18 +85,16 @@
 
     <script>
         // Setează cookies
-        document.cookie = "session=test GDPR";
-        document.cookie = "favorite_task=collect Data";
+        document.cookie = "name=Beatrice; SameSite=None; Secure";
+        document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+        document.cookie = "test1=Hello; SameSite=None; Secure";
+        document.cookie = "test2=World; SameSite=None; Secure";
+        document.cookie = "reader=1; SameSite=None; Secure";
 
-        // Funcție pentru a afișa cookies
-        function alertCookie() {
-            alert("Cookies: " + document.cookie);
-        }
-
-        // Funcții MDN - Show cookies
+        // Afișează toate cookie-urile
         function showCookies() {
             const output = document.getElementById("cookies");
-            output.textContent = `> ${document.cookie}`;
+            output.textContent = `Cookies: ${document.cookie}`;
         }
 
         function clearOutputCookies() {
@@ -76,7 +102,7 @@
             output.textContent = "";
         }
 
-        // Funcție pentru a arăta valoarea unui cookie
+        // Afișează valoarea unui cookie specific
         const cookieValue = document.cookie
             .split("; ")
             .find((row) => row.startsWith("test2="))
@@ -84,7 +110,7 @@
 
         function showCookieValue() {
             const output = document.getElementById("cookie-value");
-            output.textContent = `> ${cookieValue}`;
+            output.textContent = `Valoare cookie: ${cookieValue}`;
         }
 
         function clearOutputCookieValue() {
@@ -92,7 +118,7 @@
             output.textContent = "";
         }
 
-        // Funcția doOnce
+        // Permite o acțiune să se întâmple doar o dată
         function doOnce() {
             if (
                 !document.cookie
@@ -101,6 +127,7 @@
             ) {
                 document.cookie =
                     "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+
                 const output = document.getElementById("do-once");
                 output.textContent = "> Do something here!";
             }
@@ -111,7 +138,7 @@
             output.textContent = "";
         }
 
-        // Resetare doOnce
+        // Resetează cookie-ul care se întâmplă o dată
         function resetOnce() {
             document.cookie =
                 "doSomethingOnlyOnce=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
@@ -124,13 +151,13 @@
             output.textContent = "";
         }
 
-        // Verificare existență cookie
+        // Verifică dacă un cookie există
         function checkACookieExists() {
             if (
                 document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
             ) {
                 const output = document.getElementById("a-cookie-existence");
-                output.textContent = '> The cookie "reader" exists';
+                output.textContent = '> Cookie-ul "reader" există';
             }
         }
 
@@ -139,11 +166,11 @@
             output.textContent = "";
         }
 
-        // Verificare valoare specifică
+        // Verifică dacă un cookie are o valoare specifică
         function checkCookieHasASpecificValue() {
             if (document.cookie.split(";").some((item) => item.includes("reader=1"))) {
                 const output = document.getElementById("a-specific-value-of-the-cookie");
-                output.textContent = '> The cookie "reader" has a value of "1"';
+                output.textContent = '> Cookie-ul "reader" are valoarea "1"';
             }
         }
 
@@ -153,4 +180,5 @@
         }
     </script>
 </body>
+
 </html>
