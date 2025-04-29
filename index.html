@@ -1,183 +1,200 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site cu Cookies</title>
+    <title>Cookie</title>
     <style>
         h1 {
-            color: pink;
-        }
-
-        button {
-            margin: 5px;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        div {
-            margin-top: 10px;
+            color: pink
         }
     </style>
 </head>
 
 <body>
-    <h1>Bine ai venit la lab!</h1>
-
-    <!-- Butoane pentru diverse acțiuni -->
+    
+    
     <button onclick="showCookies()">Show cookies</button>
-    <button onclick="clearOutputCookies()">Clear cookies</button>
 
-    <div>
-        <code id="cookies"></code>
-    </div>
+<button onclick="clearOutputCookies()">Clear</button>
 
-    <h1>Exemplu Cookie Value</h1>
+<div>
+  <code id="cookies"></code>
+</div>
+
+ 
+<h1>      </h1>
+
     <button onclick="showCookieValue()">Show cookie value</button>
-    <button onclick="clearOutputCookieValue()">Clear cookie value</button>
 
-    <div>
-        <code id="cookie-value"></code>
-    </div>
+<button onclick="clearOutputCookieValue()">Clear</button>
 
-    <h1>Exemplu doar o dată</h1>
-    <button onclick="doOnce()">Only do something once</button>
-    <button onclick="clearOutputDoOnce()">Clear</button>
 
-    <div>
-        <code id="do-once"></code>
-    </div>
+<h1>      </h1>
 
-    <h1>Resetare Cookie Doar O Dată</h1>
+<div>
+  <code id="cookie-value"></code>
+</div>
+
+<button onclick="doOnce()">Only do something once</button>
+
+<button onclick="clearOutputDoOnce()">Clear</button>
+
+
+<h1>      </h1>
+
+<div>
+  <code id="do-once"></code>
+</div>
+
     <button onclick="resetOnce()">Reset only once cookie</button>
-    <button onclick="clearOutputResetOnce()">Clear</button>
 
-    <div>
-        <code id="reset-once"></code>
-    </div>
+<button onclick="clearOutputResetOnce()">Clear</button>
 
-    <h1>Verificare existență cookie</h1>
-    <button onclick="checkACookieExists()">Check a cookie exists</button>
-    <button onclick="clearOutputACookieExists()">Clear</button>
 
-    <div>
-        <code id="a-cookie-existence"></code>
-    </div>
+<h1>      </h1>
 
-    <h1>Verificare valoare specifică a cookie-ului</h1>
-    <button onclick="checkCookieHasASpecificValue()">Check that a cookie has a specific value</button>
-    <button onclick="clearASpecificValueOfTheCookie()">Clear</button>
+<div>
+  <code id="reset-once"></code>
+</div>
+<button onclick="checkACookieExists()">Check a cookie exists</button>
 
-    <div>
-        <code id="a-specific-value-of-the-cookie"></code>
-    </div>
+<button onclick="clearOutputACookieExists()">Clear</button>
 
+
+<h1>      </h1>
+
+<div>
+  <code id="a-cookie-existence"></code>
+</div>
+<button onclick="checkCookieHasASpecificValue()">
+  Check that a cookie has a specific value
+</button>
+
+<button onclick="clearASpecificValueOfTheCookie()">Clear</button>
+
+
+<h1>      </h1>
+
+<div>
+  <code id="a-specific-value-of-the-cookie"></code>
+</div>
+
+    
     <!-- Empty Paragraph element to display Cookies -->
     <p id="cookies"></p>
-
     <script>
-        // Setează cookies
-        document.cookie = "name=Beatrice; SameSite=None; Secure";
-        document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+        // Set cookies
+        function setCookie() {
+            document.cookie =
+                document.getElementById('key').value + "="
+                + document.getElementById('val').value;
+        }
+        // Get cookies
+        function getCookie() {
+            document.getElementById("cookies").innerHTML =
+                document.cookie;
+        }
+
+        
+document.cookie = "name=Beatrice; SameSite=None; Secure";
+document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+function showCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = `> ${document.cookie}`;
+}
+
+function clearOutputCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = "";
+}
+
         document.cookie = "test1=Hello; SameSite=None; Secure";
-        document.cookie = "test2=World; SameSite=None; Secure";
+document.cookie = "test2=World; SameSite=None; Secure";
+
+const cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("test2="))
+  ?.split("=")[1];
+
+function showCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = `> ${cookieValue}`;
+}
+
+function clearOutputCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = "";
+}
+
+        function doOnce() {
+  if (
+    !document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("doSomethingOnlyOnce"))
+  ) {
+    // Note that we are setting `SameSite=None;` in this example because the example
+    // needs to work cross-origin.
+    // It is more common not to set the `SameSite` attribute, which results in the default,
+    // and more secure, value of `SameSite=Lax;`
+    document.cookie =
+      "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+
+    const output = document.getElementById("do-once");
+    output.textContent = "> Do something here!";
+  }
+}
+
+function clearOutputDoOnce() {
+  const output = document.getElementById("do-once");
+  output.textContent = "";
+}
+
+        function resetOnce() {
+  // Note that we are setting `SameSite=None;` in this example because the example
+  // needs to work cross-origin.
+  // It is more common not to set the `SameSite` attribute, which results in the default,
+  // and more secure, value of `SameSite=Lax;`
+  document.cookie =
+    "doSomethingOnlyOnce=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
+
+  const output = document.getElementById("reset-once");
+  output.textContent = "> Reset!";
+}
+
+function clearOutputResetOnce() {
+  const output = document.getElementById("reset-once");
+  output.textContent = "";
+}
+
         document.cookie = "reader=1; SameSite=None; Secure";
 
-        // Afișează toate cookie-urile
-        function showCookies() {
-            const output = document.getElementById("cookies");
-            output.textContent = `Cookies: ${document.cookie}`;
-        }
+function checkACookieExists() {
+  if (
+    document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
+  ) {
+    const output = document.getElementById("a-cookie-existence");
+    output.textContent = '> The cookie "reader" exists';
+  }
+}
 
-        function clearOutputCookies() {
-            const output = document.getElementById("cookies");
-            output.textContent = "";
-        }
+function clearOutputACookieExists() {
+  const output = document.getElementById("a-cookie-existence");
+  output.textContent = "";
+}
+function checkCookieHasASpecificValue() {
+  if (document.cookie.split(";").some((item) => item.includes("reader=1"))) {
+    const output = document.getElementById("a-specific-value-of-the-cookie");
+    output.textContent = '> The cookie "reader" has a value of "1"';
+  }
+}
 
-        // Afișează valoarea unui cookie specific
-        const cookieValue = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("test2="))
-            ?.split("=")[1];
+function clearASpecificValueOfTheCookie() {
+  const output = document.getElementById("a-specific-value-of-the-cookie");
+  output.textContent = "";
+}
 
-        function showCookieValue() {
-            const output = document.getElementById("cookie-value");
-            output.textContent = `Valoare cookie: ${cookieValue}`;
-        }
 
-        function clearOutputCookieValue() {
-            const output = document.getElementById("cookie-value");
-            output.textContent = "";
-        }
-
-        // Permite o acțiune să se întâmple doar o dată
-        function doOnce() {
-            if (
-                !document.cookie
-                    .split("; ")
-                    .find((row) => row.startsWith("doSomethingOnlyOnce"))
-            ) {
-                document.cookie =
-                    "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
-
-                const output = document.getElementById("do-once");
-                output.textContent = "> Do something here!";
-            }
-        }
-
-        function clearOutputDoOnce() {
-            const output = document.getElementById("do-once");
-            output.textContent = "";
-        }
-
-        // Resetează cookie-ul care se întâmplă o dată
-        function resetOnce() {
-            document.cookie =
-                "doSomethingOnlyOnce=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
-            const output = document.getElementById("reset-once");
-            output.textContent = "> Reset!";
-        }
-
-        function clearOutputResetOnce() {
-            const output = document.getElementById("reset-once");
-            output.textContent = "";
-        }
-
-        // Verifică dacă un cookie există
-        function checkACookieExists() {
-            if (
-                document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
-            ) {
-                const output = document.getElementById("a-cookie-existence");
-                output.textContent = '> Cookie-ul "reader" există';
-            }
-        }
-
-        function clearOutputACookieExists() {
-            const output = document.getElementById("a-cookie-existence");
-            output.textContent = "";
-        }
-
-        // Verifică dacă un cookie are o valoare specifică
-        function checkCookieHasASpecificValue() {
-            if (document.cookie.split(";").some((item) => item.includes("reader=1"))) {
-                const output = document.getElementById("a-specific-value-of-the-cookie");
-                output.textContent = '> Cookie-ul "reader" are valoarea "1"';
-            }
-        }
-
-        function clearASpecificValueOfTheCookie() {
-            const output = document.getElementById("a-specific-value-of-the-cookie");
-            output.textContent = "";
-        }
     </script>
 </body>
 
