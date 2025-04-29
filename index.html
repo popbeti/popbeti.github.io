@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagina proiect - Cookies</title>
+</head>
+<body>
+  <h1>Pagina proiectului meu</h1>
+  <p>Exemplu cu cookies și buton JavaScript.</p>
+
+  <button onclick="alertCookie()">Afișează cookies</button>
+
+  <script>
+    document.cookie = "session=test GDPR";
+    document.cookie = "favorite_task=collect Data";
+
+    function alertCookie() {
+      alert("Cookies salvate:\n" + document.cookie);
+    }
+  </script>
+</body>
+</html>
